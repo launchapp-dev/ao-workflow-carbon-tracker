@@ -1,0 +1,29 @@
+name: "Greenfield Manufacturing Corp"
+industry_sector: "Manufacturing"
+reporting_boundary: "Operational Control"
+base_year: 2023
+base_year_emissions_tco2e: 45000
+fiscal_year_start: "01-01"
+facilities:
+  - id: HQ-001
+    name: "Corporate Headquarters"
+    type: office
+    location: "San Francisco, CA"
+    egrid_subregion: WECC_CAMX
+    employees: 500
+  - id: MFG-001
+    name: "Primary Manufacturing Plant"
+    type: manufacturing
+    location: "Portland, OR"
+    egrid_subregion: WECC_NWPP
+    employees: 1200
+  - id: WH-001
+    name: "Distribution Center"
+    type: warehouse
+    location: "Denver, CO"
+    egrid_subregion: RMPA
+    employees: 150
+reporting_contact:
+  name: "Jordan Chen"
+  title: "Director of Sustainability"
+  email: "jchen@greenfield.example.com"

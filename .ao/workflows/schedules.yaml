@@ -1,0 +1,33 @@
+schedules:
+  # Monthly data ingestion — runs on the 2nd of each month at 6am
+  # (1 day after month-end to allow source files to arrive)
+  - id: monthly-ingest
+    cron: "0 6 2 * *"
+    workflow_ref: ingest-emissions-data
+    enabled: true
+
+  # Monthly footprint calculation — runs on the 3rd of each month at 8am
+  # (after ingestion completes)
+  - id: monthly-calculate
+    cron: "0 8 3 * *"
+    workflow_ref: calculate-footprint
+    enabled: true
+
+  # Quarterly reduction planning — runs on the 5th of Jan, Apr, Jul, Oct at 9am
+  - id: quarterly-reduction-planning
+    cron: "0 9 5 1,4,7,10 *"
+    workflow_ref: reduction-planning
+    enabled: true
+
+  # Quarterly report — runs on the 10th of Jan, Apr, Jul, Oct at 9am
+  # (after reduction planning completes)
+  - id: quarterly-reporting
+    cron: "0 9 10 1,4,7,10 *"
+    workflow_ref: quarterly-report
+    enabled: true
+
+  # Weekly anomaly detection — runs every Monday at 7am
+  - id: weekly-anomaly-scan
+    cron: "0 7 * * 1"
+    workflow_ref: anomaly-detection
+    enabled: true

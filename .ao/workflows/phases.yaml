@@ -1,0 +1,339 @@
+phases:
+  # ─── Ingest Workflow Phases ───────────────────────────────────────────────
+
+  parse-source-files:
+    mode: command
+    capabilities:
+      mutates_state: true
+      writes_files: true
+    command:
+      program: bash
+      args: ["-c", "bash scripts/parse-sources.sh"]
+      cwd_mode: project_root
+      timeout_secs: 120
+    directive: |
+      Run scripts/parse-sources.sh to normalize all raw CSV/JSON files from data/sources/raw/
+      into a staging format. The script converts utility bills (electricity, natural gas),
+      fuel purchase records (diesel, gasoline), travel expense reports, and procurement
+      summaries into a consistent JSON structure for the data-collector agent to validate.
+      Exit code 0 = success, non-zero = parsing error (check stderr for details).
+
+  validate-and-store:
+    mode: agent
+    agent: data-collector
+    capabilities:
+      mutates_state: true
+      writes_files: true
+    directive: |
+      Read all staged source files from data/sources/raw/ and validate them:
+
+      1. Read config/organization.yaml to get the facility list and reporting boundary
+      2. Read config/categories.yaml to map source types to scope classifications
+      3. Process each raw file, validating:
+         - All facility IDs exist in organization.yaml
+         - Activity values are positive and within 3x the 12-month rolling average
+         - No duplicate records for the same facility + category + period
+         - Units match expected units from config/emission-factors.yaml
+      4. Write validated records to data/sources/current.json
+      5. Write any anomalies or quality flags to data/sources/anomalies.json
+      6. Report a summary of records accepted, flagged, and rejected
+
+      If more than 30% of records have data_quality: low, flag for human review.
+
+  # ─── Calculate Footprint Workflow Phases ─────────────────────────────────
+
+  aggregate-activity-data:
+    mode: command
+    capabilities:
+      mutates_state: true
+      writes_files: false
+    command:
+      program: bash
+      args: ["-c", "bash scripts/aggregate-activities.sh"]
+      cwd_mode: project_root
+      timeout_secs: 60
+    directive: |
+      Run scripts/aggregate-activities.sh to aggregate validated source data from
+      data/sources/current.json by scope and category. This produces summary totals
+      (e.g., total kWh by facility, total diesel gallons by fleet category) that
+      the calculator agent will apply emission factors to. Output written to stdout
+      and captured in the task context.
+
+  calculate-emissions:
+    mode: agent
+    agent: calculator
+    capabilities:
+      mutates_state: true
+      writes_files: true
+    directive: |
+      Calculate Scope 1, 2, and 3 emissions for the current period:
+
+      1. Read data/sources/current.json for validated activity data
+      2. Read config/emission-factors.yaml for GHG Protocol emission factors
+      3. For each record in current.json, apply the matching emission factor:
+         - Match on category field (natural_gas, diesel, electricity, etc.)
+         - For electricity, match on facility location to eGRID subregion factor
+         - For business travel, classify by distance into short/medium/long haul
+      4. Sum results by scope to get scope_1_total, scope_2_total, scope_3_total
+      5. Write complete emissions inventory to data/emissions/current-period.json
+      6. Append this period's summary to data/emissions/inventory.json
+      7. Archive current-period.json to data/emissions/history/ with period timestamp
+
+      Include methodology_notes for any estimated values or exclusions.
+      Calculate data_quality_score as weighted average of source record quality.
+
+  benchmark-against-targets:
+    mode: agent
+    agent: benchmarker
+    capabilities:
+      mutates_state: true
+      writes_files: true
+    decision_contract:
+      required_fields:
+        - verdict
+        - scope_1_status
+        - scope_2_status
+        - scope_3_status
+        - variance_pct
+        - ytd_emissions_tco2e
+        - prorated_budget_tco2e
+        - narrative
+    directive: |
+      Assess emissions performance against SBTi targets for the current period:
+
+      1. Read config/targets.yaml for annual budgets and the SBTi 1.5°C pathway
+      2. Read data/emissions/current-period.json for this period's calculated emissions
+      3. Read data/emissions/inventory.json for YTD totals and 3-month trend
+      4. Calculate the prorated annual budget through the current month
+         (e.g., if reporting month is March, budget = annual_budget × 3/12)
+      5. Compare YTD actuals to prorated budget for each scope and in total
+      6. Determine verdict using the threshold definitions in your system prompt
+      7. Write assessment to data/benchmarks/target-status.json
+      8. Return the decision contract fields as a JSON verdict
+
+  generate-monthly-summary:
+    mode: agent
+    agent: reporter
+    capabilities:
+      writes_files: true
+    directive: |
+      Generate a monthly emissions summary report:
+
+      1. Read data/emissions/current-period.json for this month's emissions
+      2. Read data/benchmarks/target-status.json for the benchmark assessment
+      3. Read data/sources/anomalies.json for any data quality flags
+      4. Read data/emissions/inventory.json for the 6-month trend
+      5. Determine the current reporting period from current-period.json
+      6. Write the report to reports/monthly/YYYY-MM-summary.md
+         (use the period from step 5 for the filename)
+      7. Include an ASCII trend chart showing the last 6 months vs. monthly budget
+      8. If the benchmark verdict was behind-target or critical-overshoot,
+         include a dedicated "Recommended Actions" section with 3–5 immediate steps
+
+      Update data/quarterly-summary.json with this month's key metrics.
+
+  # ─── Reduction Planning Workflow Phases ──────────────────────────────────
+
+  analyze-hotspots:
+    mode: command
+    capabilities:
+      mutates_state: true
+      writes_files: true
+    command:
+      program: bash
+      args: ["-c", "bash scripts/analyze-hotspots.sh"]
+      cwd_mode: project_root
+      timeout_secs: 90
+    directive: |
+      Run scripts/analyze-hotspots.sh to identify the top emission sources across
+      all scopes. The script uses python3 to:
+      - Load data/emissions/inventory.json
+      - Rank sources by average monthly tCO2e contribution
+      - Calculate trend (improving/worsening) for each source
+      - Identify sources where trajectory is diverging from budget
+      Output written to data/reductions/hotspots.json with ranked list.
+
+  find-opportunities:
+    mode: agent
+    agent: opportunity-finder
+    capabilities:
+      mutates_state: true
+      writes_files: true
+    directive: |
+      Analyze emission hotspots and identify concrete reduction opportunities:
+
+      1. Read data/reductions/hotspots.json for the ranked emission sources
+      2. Read data/emissions/inventory.json for historical trends
+      3. Read config/targets.yaml for the reduction gap (trajectory vs. SBTi pathway)
+      4. Read config/organization.yaml for facility types and sizes (constraints)
+      5. For each hotspot in the top 80% of emissions, identify 1–3 reduction levers
+      6. Score and rank all opportunities using the MAC curve methodology
+      7. Ensure the total abatement potential covers at least 120% of the reduction gap
+         (buffer for implementation uncertainty)
+      8. Write all opportunities to data/reductions/opportunities.json
+
+      Focus on opportunities that are technically feasible for the organization's
+      industry sector and facility types. Do not propose actions that require
+      technology that doesn't exist commercially at scale.
+
+  evaluate-feasibility:
+    mode: agent
+    agent: benchmarker
+    capabilities:
+      mutates_state: true
+      writes_files: true
+    decision_contract:
+      required_fields:
+        - verdict
+        - gap_tco2e
+        - coverage_pct
+        - shortfall_tco2e
+        - narrative
+    directive: |
+      Evaluate whether the proposed reduction opportunities are sufficient to close
+      the emissions gap and meet the SBTi target trajectory:
+
+      1. Read data/reductions/opportunities.json for the proposed opportunities
+      2. Read config/targets.yaml for required annual reductions
+      3. Read data/benchmarks/target-status.json for current trajectory gap
+      4. Calculate total abatement potential from all proposed opportunities
+      5. Calculate coverage_pct = total_abatement_potential / gap_tco2e × 100
+      6. Apply a 20% implementation uncertainty discount to total abatement
+      7. Assess feasibility:
+         - sufficient: coverage_pct ≥ 100% after uncertainty discount
+         - insufficient: coverage_pct < 100% after uncertainty discount
+      8. Write assessment to data/benchmarks/target-status.json (append feasibility block)
+
+      If verdict is insufficient, include specific guidance in narrative about what
+      additional abatement categories should be explored in the rework.
+
+  compile-reduction-plan:
+    mode: agent
+    agent: reporter
+    capabilities:
+      writes_files: true
+    directive: |
+      Compile the quarterly emission reduction plan from validated opportunities:
+
+      1. Read data/reductions/opportunities.json for all evaluated opportunities
+      2. Read data/benchmarks/target-status.json for the trajectory gap context
+      3. Read config/targets.yaml for the SBTi pathway and annual milestones
+      4. Organize opportunities into three tiers: Quick Wins, Medium Effort, Strategic Investments
+      5. Build a 12-month implementation roadmap with milestones
+      6. Create a risk register (top 5 risks to plan execution)
+      7. Write the reduction plan to reports/quarterly/YYYY-QN-reduction-plan.md
+      8. Write a machine-readable summary to data/reductions/active-plan.json
+
+      The plan must be actionable: each action has an owner role, deadline, and
+      projected tCO2e impact. Total plan impact should close the identified gap.
+
+  # ─── Quarterly Report Workflow Phases ─────────────────────────────────────
+
+  aggregate-quarterly-data:
+    mode: command
+    capabilities:
+      mutates_state: true
+      writes_files: true
+    command:
+      program: bash
+      args: ["-c", "bash scripts/aggregate-quarterly.sh"]
+      cwd_mode: project_root
+      timeout_secs: 90
+    directive: |
+      Run scripts/aggregate-quarterly.sh to roll up 3 months of emissions data into
+      quarterly totals. The script:
+      - Reads data/emissions/inventory.json for the last 3 monthly periods
+      - Aggregates scope 1/2/3 totals for the quarter
+      - Calculates quarter-over-quarter and year-over-year comparisons
+      - Writes aggregated quarterly data to data/quarterly-summary.json
+
+  compile-disclosure:
+    mode: agent
+    agent: calculator
+    capabilities:
+      writes_files: true
+    directive: |
+      Compile the formal GHG inventory disclosure for the quarter:
+
+      1. Read data/quarterly-summary.json for aggregated quarterly totals
+      2. Read data/emissions/inventory.json for historical context
+      3. Read config/organization.yaml for reporting boundary and contact info
+      4. Read config/emission-factors.yaml to document methodology
+      5. Compile a complete GHG inventory with:
+         - Scope 1 breakdown by source category (combustion, mobile, fugitive)
+         - Scope 2 using both location-based and market-based approaches
+         - Scope 3 by relevant category with materiality assessment
+         - Data quality scores and coverage percentages
+         - Methodology notes (emission factor sources, exclusions, estimations)
+         - Assurance readiness assessment (what would need third-party verification)
+      6. Write compiled inventory to data/quarterly-summary.json (overwrite with full version)
+
+  assess-progress:
+    mode: agent
+    agent: benchmarker
+    capabilities:
+      writes_files: true
+    directive: |
+      Assess quarterly progress against annual SBTi targets:
+
+      1. Read data/quarterly-summary.json for the compiled quarterly inventory
+      2. Read config/targets.yaml for annual targets and SBTi pathway
+      3. Read data/emissions/inventory.json for year-to-date and prior year data
+      4. Read data/reductions/active-plan.json for reduction initiative status
+      5. Calculate:
+         - % of annual budget consumed through Q[N]
+         - Year-over-year change (Q[N] vs same quarter last year)
+         - Trajectory to year-end (annualized run rate vs. annual budget)
+         - Progress on SBTi pathway (% reduction from base year)
+         - Initiative completion rate (actions completed vs. planned)
+      6. Write detailed progress assessment to data/benchmarks/target-status.json
+
+  generate-quarterly-report:
+    mode: agent
+    agent: reporter
+    capabilities:
+      writes_files: true
+    directive: |
+      Generate the comprehensive quarterly sustainability report:
+
+      1. Read data/quarterly-summary.json for the full quarterly inventory
+      2. Read data/benchmarks/target-status.json for the progress assessment
+      3. Read data/reductions/active-plan.json for initiative status
+      4. Read reports/quarterly/YYYY-QN-reduction-plan.md if it exists (for context)
+      5. Write the quarterly report to reports/quarterly/YYYY-QN-report.md:
+         - Executive Summary (1 page: headline numbers, key achievements, concerns)
+         - Scope 1/2/3 Inventory Table with QoQ and YoY comparisons
+         - Progress Against SBTi Targets section with trajectory chart (ASCII)
+         - Reduction Initiatives Dashboard (status of each action)
+         - Data Quality and Methodology Disclosure
+         - Outlook section (what to expect next quarter, key risks)
+      6. Write annual disclosure summary to reports/annual/latest-disclosure.md
+         (updated each quarter with cumulative YTD data)
+
+      Format for dual audiences: executive summary is plain-English, technical sections
+      use GHG Protocol terminology and include sufficient detail for auditor review.
+
+  # ─── Anomaly Detection Workflow Phases ───────────────────────────────────
+
+  detect-anomalies:
+    mode: agent
+    agent: data-collector
+    capabilities:
+      mutates_state: false
+      writes_files: true
+    directive: |
+      Perform a weekly anomaly scan across all emissions data:
+
+      1. Read data/sources/current.json for the latest validated records
+      2. Read data/emissions/inventory.json for historical emissions by source
+      3. Check for:
+         - Values >2 standard deviations from 12-month rolling mean (by source+facility)
+         - Sudden spikes: month-over-month increase >50% for any source
+         - Missing data: facilities that had data last month but nothing this month
+         - Scope coverage gaps: any mandatory Scope 1/2 source with zero activity
+         - Emissions intensity anomalies: emissions/unit-of-production out of normal range
+      4. Write detected anomalies to data/sources/anomalies.json (append, don't overwrite)
+      5. If any CRITICAL anomalies found (spike >100% MoM or complete data loss),
+         write an alert summary to reports/monthly/anomaly-alert-YYYY-MM-DD.md
+
+      This is a read-mostly operation. Only write anomaly records and alert files.

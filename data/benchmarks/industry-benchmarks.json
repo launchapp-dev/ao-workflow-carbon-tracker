@@ -1,0 +1,30 @@
+{
+  "sector": "Manufacturing",
+  "source": "GHG Protocol / CDP 2024 Industrial Sector Report",
+  "updated": "2024-06-01",
+  "benchmarks": {
+    "emissions_intensity": {
+      "unit": "tCO2e per $M revenue",
+      "sector_median": 145,
+      "sector_top_quartile": 82,
+      "sector_bottom_quartile": 310
+    },
+    "scope_1_share_pct": {
+      "sector_median": 28,
+      "description": "Scope 1 as % of total emissions"
+    },
+    "scope_2_share_pct": {
+      "sector_median": 42,
+      "description": "Scope 2 as % of total emissions"
+    },
+    "scope_3_share_pct": {
+      "sector_median": 30,
+      "description": "Scope 3 as % of total emissions (cat 1-15)"
+    },
+    "annual_reduction_rate_pct": {
+      "sector_median": 4.2,
+      "sbti_required": 6.0,
+      "description": "% reduction per year to meet 1.5°C pathway"
+    }
+  }
+}

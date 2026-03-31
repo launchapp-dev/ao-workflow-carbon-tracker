@@ -1,0 +1,26 @@
+{
+  "quarter": "2025-Q4",
+  "periods_included": [
+    "2025-10",
+    "2025-11",
+    "2025-12"
+  ],
+  "generated_at": "2026-03-31T14:44:24.421473Z",
+  "emissions": {
+    "scope_1_tco2e": 3179.6,
+    "scope_2_tco2e": 2675.1,
+    "scope_3_tco2e": 1016.7,
+    "total_tco2e": 6871.4
+  },
+  "year_over_year": {
+    "prior_quarter_label": "2024-Q4",
+    "prior_scope_1_tco2e": 0,
+    "prior_scope_2_tco2e": 0,
+    "prior_scope_3_tco2e": 0,
+    "prior_total_tco2e": 0,
+    "scope_1_pct_change": null,
+    "scope_2_pct_change": null,
+    "scope_3_pct_change": null,
+    "total_pct_change": null
+  }
+}

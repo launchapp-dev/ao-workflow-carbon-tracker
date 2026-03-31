@@ -1,0 +1,67 @@
+[
+  {
+    "facility_id": "HQ-001",
+    "period": "2026-01",
+    "category": "business_travel_air",
+    "activity_value": 485000,
+    "unit": "passenger-mile",
+    "source_type": "concur_export",
+    "notes": "Haul mix: 20% short, 55% medium, 25% long",
+    "_source_file": "data/sources/raw/2026-Q1-travel-and-scope3.json",
+    "_parsed_at": "2026-03-31T14:43:58.042037Z"
+  },
+  {
+    "facility_id": "HQ-001",
+    "period": "2026-02",
+    "category": "business_travel_air",
+    "activity_value": 312000,
+    "unit": "passenger-mile",
+    "source_type": "concur_export",
+    "notes": "Haul mix: 15% short, 60% medium, 25% long",
+    "_source_file": "data/sources/raw/2026-Q1-travel-and-scope3.json",
+    "_parsed_at": "2026-03-31T14:43:58.042206Z"
+  },
+  {
+    "facility_id": "HQ-001",
+    "period": "2026-03",
+    "category": "business_travel_air",
+    "activity_value": 398000,
+    "unit": "passenger-mile",
+    "source_type": "concur_export",
+    "notes": "Haul mix: 18% short, 57% medium, 25% long",
+    "_source_file": "data/sources/raw/2026-Q1-travel-and-scope3.json",
+    "_parsed_at": "2026-03-31T14:43:58.042207Z"
+  },
+  {
+    "facility_id": "HQ-001",
+    "period": "2026-Q1",
+    "category": "purchased_goods",
+    "activity_value": 850,
+    "unit": "metric_ton",
+    "source_type": "procurement_record",
+    "notes": "Steel: 420t, Aluminum: 180t, Plastics: 250t",
+    "breakdown": {
+      "steel_mt": 420,
+      "aluminum_mt": 180,
+      "plastics_mt": 250
+    },
+    "_source_file": "data/sources/raw/2026-Q1-travel-and-scope3.json",
+    "_parsed_at": "2026-03-31T14:43:58.042208Z"
+  },
+  {
+    "facility_id": "MFG-001",
+    "period": "2026-Q1",
+    "category": "purchased_goods",
+    "activity_value": 3240,
+    "unit": "metric_ton",
+    "source_type": "procurement_record",
+    "notes": "Steel: 1850t, Aluminum: 720t, Plastics: 670t",
+    "breakdown": {
+      "steel_mt": 1850,
+      "aluminum_mt": 720,
+      "plastics_mt": 670
+    },
+    "_source_file": "data/sources/raw/2026-Q1-travel-and-scope3.json",
+    "_parsed_at": "2026-03-31T14:43:58.042209Z"
+  }
+]

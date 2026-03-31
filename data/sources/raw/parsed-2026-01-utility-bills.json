@@ -1,0 +1,62 @@
+[
+  {
+    "facility_id": "HQ-001",
+    "period": "2026-01",
+    "category": "electricity",
+    "activity_value": "185000",
+    "unit": "kWh",
+    "source_type": "utility_bill",
+    "_source_file": "data/sources/raw/2026-01-utility-bills.csv",
+    "_parsed_at": "2026-03-31T14:43:57.988442Z"
+  },
+  {
+    "facility_id": "HQ-001",
+    "period": "2026-01",
+    "category": "natural_gas",
+    "activity_value": "420",
+    "unit": "MMBtu",
+    "source_type": "utility_bill",
+    "_source_file": "data/sources/raw/2026-01-utility-bills.csv",
+    "_parsed_at": "2026-03-31T14:43:57.988685Z"
+  },
+  {
+    "facility_id": "MFG-001",
+    "period": "2026-01",
+    "category": "electricity",
+    "activity_value": "1240000",
+    "unit": "kWh",
+    "source_type": "utility_bill",
+    "_source_file": "data/sources/raw/2026-01-utility-bills.csv",
+    "_parsed_at": "2026-03-31T14:43:57.988690Z"
+  },
+  {
+    "facility_id": "MFG-001",
+    "period": "2026-01",
+    "category": "natural_gas",
+    "activity_value": "3800",
+    "unit": "MMBtu",
+    "source_type": "utility_bill",
+    "_source_file": "data/sources/raw/2026-01-utility-bills.csv",
+    "_parsed_at": "2026-03-31T14:43:57.988694Z"
+  },
+  {
+    "facility_id": "WH-001",
+    "period": "2026-01",
+    "category": "electricity",
+    "activity_value": "310000",
+    "unit": "kWh",
+    "source_type": "utility_bill",
+    "_source_file": "data/sources/raw/2026-01-utility-bills.csv",
+    "_parsed_at": "2026-03-31T14:43:57.988697Z"
+  },
+  {
+    "facility_id": "WH-001",
+    "period": "2026-01",
+    "category": "natural_gas",
+    "activity_value": "580",
+    "unit": "MMBtu",
+    "source_type": "utility_bill",
+    "_source_file": "data/sources/raw/2026-01-utility-bills.csv",
+    "_parsed_at": "2026-03-31T14:43:57.988700Z"
+  }
+]

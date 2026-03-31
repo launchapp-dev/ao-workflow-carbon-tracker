@@ -1,0 +1,10 @@
+facility_id,period,category,activity_value,unit,source_type
+MFG-001,2026-01,diesel,4200,gallon,fleet_record
+MFG-001,2026-02,diesel,3950,gallon,fleet_record
+MFG-001,2026-03,diesel,4100,gallon,fleet_record
+WH-001,2026-01,diesel,1800,gallon,fleet_record
+WH-001,2026-02,diesel,1650,gallon,fleet_record
+WH-001,2026-03,diesel,1720,gallon,fleet_record
+HQ-001,2026-01,gasoline,620,gallon,fleet_record
+HQ-001,2026-02,gasoline,580,gallon,fleet_record
+HQ-001,2026-03,gasoline,605,gallon,fleet_record

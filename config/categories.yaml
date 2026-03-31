@@ -1,0 +1,58 @@
+# Emission source categories mapped to GHG Protocol scopes
+# Used by data-collector to classify incoming source records
+
+scope_1:
+  description: "Direct emissions from owned or controlled sources"
+  categories:
+    - id: natural_gas
+      display: "Natural Gas (Stationary Combustion)"
+      unit: MMBtu
+      source_types: [utility_bill, meter_reading]
+    - id: diesel
+      display: "Diesel Fuel (Mobile/Stationary)"
+      unit: gallon
+      source_types: [fuel_purchase, fleet_record]
+    - id: gasoline
+      display: "Gasoline (Company Vehicles)"
+      unit: gallon
+      source_types: [fuel_purchase, fleet_record]
+    - id: propane
+      display: "Propane (Stationary Combustion)"
+      unit: gallon
+      source_types: [utility_bill, fuel_purchase]
+    - id: refrigerants
+      display: "Refrigerant Leaks (Fugitive Emissions)"
+      unit: kg
+      source_types: [maintenance_record, hvac_log]
+
+scope_2:
+  description: "Indirect emissions from purchased energy"
+  categories:
+    - id: electricity
+      display: "Purchased Electricity"
+      unit: kWh
+      source_types: [utility_bill, meter_reading]
+    - id: steam
+      display: "Purchased Steam/Heating"
+      unit: MMBtu
+      source_types: [utility_bill]
+
+scope_3:
+  description: "All other indirect emissions in value chain"
+  categories:
+    - id: business_travel_air
+      display: "Business Air Travel"
+      unit: passenger-mile
+      source_types: [travel_expense, concur_export]
+    - id: employee_commuting
+      display: "Employee Commuting"
+      unit: mile
+      source_types: [commute_survey, hr_data]
+    - id: purchased_goods
+      display: "Purchased Goods & Materials"
+      unit: metric_ton
+      source_types: [procurement_record, invoice]
+    - id: waste
+      display: "Waste Generated in Operations"
+      unit: metric_ton
+      source_types: [waste_manifest, hauler_invoice]

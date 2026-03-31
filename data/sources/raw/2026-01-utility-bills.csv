@@ -1,0 +1,7 @@
+facility_id,period,category,activity_value,unit,source_type
+HQ-001,2026-01,electricity,185000,kWh,utility_bill
+HQ-001,2026-01,natural_gas,420,MMBtu,utility_bill
+MFG-001,2026-01,electricity,1240000,kWh,utility_bill
+MFG-001,2026-01,natural_gas,3800,MMBtu,utility_bill
+WH-001,2026-01,electricity,310000,kWh,utility_bill
+WH-001,2026-01,natural_gas,580,MMBtu,utility_bill

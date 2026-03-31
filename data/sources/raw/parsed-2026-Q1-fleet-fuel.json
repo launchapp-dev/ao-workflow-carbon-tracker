@@ -1,0 +1,92 @@
+[
+  {
+    "facility_id": "MFG-001",
+    "period": "2026-01",
+    "category": "diesel",
+    "activity_value": "4200",
+    "unit": "gallon",
+    "source_type": "fleet_record",
+    "_source_file": "data/sources/raw/2026-Q1-fleet-fuel.csv",
+    "_parsed_at": "2026-03-31T14:43:58.016737Z"
+  },
+  {
+    "facility_id": "MFG-001",
+    "period": "2026-02",
+    "category": "diesel",
+    "activity_value": "3950",
+    "unit": "gallon",
+    "source_type": "fleet_record",
+    "_source_file": "data/sources/raw/2026-Q1-fleet-fuel.csv",
+    "_parsed_at": "2026-03-31T14:43:58.016942Z"
+  },
+  {
+    "facility_id": "MFG-001",
+    "period": "2026-03",
+    "category": "diesel",
+    "activity_value": "4100",
+    "unit": "gallon",
+    "source_type": "fleet_record",
+    "_source_file": "data/sources/raw/2026-Q1-fleet-fuel.csv",
+    "_parsed_at": "2026-03-31T14:43:58.016946Z"
+  },
+  {
+    "facility_id": "WH-001",
+    "period": "2026-01",
+    "category": "diesel",
+    "activity_value": "1800",
+    "unit": "gallon",
+    "source_type": "fleet_record",
+    "_source_file": "data/sources/raw/2026-Q1-fleet-fuel.csv",
+    "_parsed_at": "2026-03-31T14:43:58.016949Z"
+  },
+  {
+    "facility_id": "WH-001",
+    "period": "2026-02",
+    "category": "diesel",
+    "activity_value": "1650",
+    "unit": "gallon",
+    "source_type": "fleet_record",
+    "_source_file": "data/sources/raw/2026-Q1-fleet-fuel.csv",
+    "_parsed_at": "2026-03-31T14:43:58.016952Z"
+  },
+  {
+    "facility_id": "WH-001",
+    "period": "2026-03",
+    "category": "diesel",
+    "activity_value": "1720",
+    "unit": "gallon",
+    "source_type": "fleet_record",
+    "_source_file": "data/sources/raw/2026-Q1-fleet-fuel.csv",
+    "_parsed_at": "2026-03-31T14:43:58.016954Z"
+  },
+  {
+    "facility_id": "HQ-001",
+    "period": "2026-01",
+    "category": "gasoline",
+    "activity_value": "620",
+    "unit": "gallon",
+    "source_type": "fleet_record",
+    "_source_file": "data/sources/raw/2026-Q1-fleet-fuel.csv",
+    "_parsed_at": "2026-03-31T14:43:58.016957Z"
+  },
+  {
+    "facility_id": "HQ-001",
+    "period": "2026-02",
+    "category": "gasoline",
+    "activity_value": "580",
+    "unit": "gallon",
+    "source_type": "fleet_record",
+    "_source_file": "data/sources/raw/2026-Q1-fleet-fuel.csv",
+    "_parsed_at": "2026-03-31T14:43:58.016962Z"
+  },
+  {
+    "facility_id": "HQ-001",
+    "period": "2026-03",
+    "category": "gasoline",
+    "activity_value": "605",
+    "unit": "gallon",
+    "source_type": "fleet_record",
+    "_source_file": "data/sources/raw/2026-Q1-fleet-fuel.csv",
+    "_parsed_at": "2026-03-31T14:43:58.016965Z"
+  }
+]

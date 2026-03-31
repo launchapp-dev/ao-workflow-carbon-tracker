@@ -1,0 +1,62 @@
+# GHG Protocol emission factors (tCO2e per unit)
+# Source: EPA GHG Emission Factors Hub 2024, IPCC AR5 GWP values
+version: "2024"
+reference: "EPA Emission Factors for Greenhouse Gas Inventories (April 2024)"
+
+scope_1:
+  natural_gas:
+    factor: 0.05311    # tCO2e per MMBtu (HHV)
+    unit: MMBtu
+    gases: [CO2, CH4, N2O]
+  diesel:
+    factor: 0.01021    # tCO2e per gallon
+    unit: gallon
+  gasoline:
+    factor: 0.00887    # tCO2e per gallon
+    unit: gallon
+  propane:
+    factor: 0.00574    # tCO2e per gallon
+    unit: gallon
+  refrigerants:
+    R410A:
+      factor: 2.088    # tCO2e per kg (GWP100 = 2088)
+      unit: kg
+    R134a:
+      factor: 1.430    # tCO2e per kg (GWP100 = 1430)
+      unit: kg
+
+scope_2:
+  electricity:
+    # Location-based factors by eGRID subregion (tCO2e per kWh)
+    WECC_CAMX: 0.000225   # California
+    WECC_NWPP: 0.000286   # Pacific Northwest
+    RMPA: 0.000571        # Rocky Mountain
+    SERC_SE: 0.000398     # Southeast
+    RFC_E: 0.000357       # Mid-Atlantic
+    NPCC_NEWE: 0.000246   # New England
+    unit: kWh
+  steam:
+    factor: 0.06686    # tCO2e per MMBtu
+    unit: MMBtu
+
+scope_3:
+  business_travel_air:
+    short_haul:   0.000257   # tCO2e per passenger-mile (<300 miles)
+    medium_haul:  0.000195   # tCO2e per passenger-mile (300-2300 miles)
+    long_haul:    0.000152   # tCO2e per passenger-mile (>2300 miles)
+    unit: passenger-mile
+  employee_commuting:
+    car_alone:      0.000404  # tCO2e per mile
+    carpool:        0.000202  # tCO2e per mile
+    public_transit: 0.000089  # tCO2e per mile
+    unit: mile
+  purchased_goods:
+    steel:     1.89    # tCO2e per metric ton
+    aluminum:  8.14    # tCO2e per metric ton
+    plastics:  3.12    # tCO2e per metric ton
+    packaging: 1.10    # tCO2e per metric ton (mixed paper/cardboard)
+    unit: metric_ton
+  waste:
+    landfill:    0.58    # tCO2e per metric ton (mixed solid waste)
+    recycled:    0.021   # tCO2e per metric ton (recycling credit)
+    unit: metric_ton

@@ -1,0 +1,74 @@
+framework: "Science Based Targets initiative (SBTi)"
+pathway: "1.5°C aligned"
+validation_date: "2024-01-15"
+commitment_letter: "SBTi-GFC-2024-0142"
+
+base_year: 2023
+base_year_emissions:
+  scope_1: 12500    # tCO2e
+  scope_2: 18000    # tCO2e
+  scope_3: 14500    # tCO2e
+  total: 45000      # tCO2e
+
+near_term_target:
+  year: 2030
+  scope_1_2_reduction_pct: 42    # % reduction from base year
+  scope_3_reduction_pct: 25      # % reduction from base year
+  description: "Reduce absolute Scope 1 and 2 GHG emissions 42% by 2030 from a 2023 base year.
+    Reduce absolute Scope 3 GHG emissions 25% by 2030 from a 2023 base year."
+
+long_term_target:
+  year: 2050
+  description: "Achieve net-zero GHG emissions across the value chain by 2050."
+
+# Annual carbon budgets — linear reduction pathway from base year to 2030 target
+annual_budgets:
+  2024:
+    scope_1: 11625
+    scope_2: 16740
+    scope_3: 13963
+    total: 42328
+  2025:
+    scope_1: 10750
+    scope_2: 15480
+    scope_3: 13425
+    total: 39655
+  2026:
+    scope_1: 9875
+    scope_2: 14220
+    scope_3: 12888
+    total: 36983
+  2027:
+    scope_1: 9000
+    scope_2: 12960
+    scope_3: 12350
+    total: 34310
+  2028:
+    scope_1: 8125
+    scope_2: 11700
+    scope_3: 11813
+    total: 31638
+  2029:
+    scope_1: 7250
+    scope_2: 10440
+    scope_3: 11275
+    total: 28965
+  2030:
+    scope_1: 7250
+    scope_2: 10440
+    scope_3: 10875
+    total: 28565
+
+interim_milestones:
+  - year: 2025
+    description: "Complete LED lighting retrofit at all facilities"
+    expected_reduction_tco2e: 800
+  - year: 2026
+    description: "Transition 50% of company vehicle fleet to EV"
+    expected_reduction_tco2e: 1200
+  - year: 2027
+    description: "Execute solar PPA for manufacturing plant (5MW)"
+    expected_reduction_tco2e: 3500
+  - year: 2028
+    description: "Achieve 80% renewable electricity across all facilities"
+    expected_reduction_tco2e: 4200

@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-03-31T14:44:20.865133Z",
+  "total_sources_analyzed": 7,
+  "total_avg_monthly_tco2e": 764.5,
+  "hotspots": [
+    {
+      "scope": 2,
+      "category": "electricity",
+      "avg_monthly_tco2e": 297.86,
+      "last_period_tco2e": 501.3,
+      "trend": "stable",
+      "data_points": 9,
+      "total_tco2e_ytd": 2680.7,
+      "cumulative_pct": 39.0,
+      "pareto_class": "A"
+    },
+    {
+      "scope": 3,
+      "category": "purchased_goods",
+      "avg_monthly_tco2e": 239.13,
+      "last_period_tco2e": 320.6,
+      "trend": "stable",
+      "data_points": 3,
+      "total_tco2e_ytd": 717.4,
+      "cumulative_pct": 70.2,
+      "pareto_class": "A"
+    },
+    {
+      "scope": 1,
+      "category": "natural_gas",
+      "avg_monthly_tco2e": 92.11,
+      "last_period_tco2e": 38.2,
+      "trend": "worsening",
+      "data_points": 9,
+      "total_tco2e_ytd": 829.0,
+      "cumulative_pct": 82.3,
+      "pareto_class": "B"
+    },
+    {
+      "scope": 3,
+      "category": "business_travel_air",
+      "avg_monthly_tco2e": 64.27,
+      "last_period_tco2e": 52.3,
+      "trend": "stable",
+      "data_points": 3,
+      "total_tco2e_ytd": 192.8,
+      "cumulative_pct": 90.7,
+      "pareto_class": "B"
+    },
+    {
+      "scope": 3,
+      "category": "employee_commuting",
+      "avg_monthly_tco2e": 35.5,
+      "last_period_tco2e": 35.5,
+      "trend": "stable",
+      "data_points": 3,
+      "total_tco2e_ytd": 106.5,
+      "cumulative_pct": 95.3,
+      "pareto_class": "C"
+    },
+    {
+      "scope": 1,
+      "category": "diesel",
+      "avg_monthly_tco2e": 30.4,
+      "last_period_tco2e": 18.9,
+      "trend": "improving",
+      "data_points": 6,
+      "total_tco2e_ytd": 182.4,
+      "cumulative_pct": 99.3,
+      "pareto_class": "C"
+    },
+    {
+      "scope": 1,
+      "category": "gasoline",
+      "avg_monthly_tco2e": 5.23,
+      "last_period_tco2e": 5.1,
+      "trend": "stable",
+      "data_points": 3,
+      "total_tco2e_ytd": 15.7,
+      "cumulative_pct": 100.0,
+      "pareto_class": "C"
+    }
+  ]
+}

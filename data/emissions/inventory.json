@@ -1,0 +1,107 @@
+[
+  {
+    "period": "2025-10",
+    "calculated_at": "2025-11-03T08:15:00Z",
+    "scope_1": {
+      "total_tco2e": 1018.4,
+      "breakdown": [
+        {"category": "natural_gas", "facility_id": "MFG-001", "activity_value": 3750, "unit": "MMBtu", "factor": 0.05311, "tco2e": 199.2},
+        {"category": "natural_gas", "facility_id": "HQ-001", "activity_value": 410, "unit": "MMBtu", "factor": 0.05311, "tco2e": 21.8},
+        {"category": "natural_gas", "facility_id": "WH-001", "activity_value": 560, "unit": "MMBtu", "factor": 0.05311, "tco2e": 29.7},
+        {"category": "diesel", "facility_id": "MFG-001", "activity_value": 4050, "unit": "gallon", "factor": 0.01021, "tco2e": 41.4},
+        {"category": "diesel", "facility_id": "WH-001", "activity_value": 1720, "unit": "gallon", "factor": 0.01021, "tco2e": 17.6},
+        {"category": "gasoline", "facility_id": "HQ-001", "activity_value": 610, "unit": "gallon", "factor": 0.00887, "tco2e": 5.4}
+      ]
+    },
+    "scope_2": {
+      "total_tco2e": 875.2,
+      "location_based": 875.2,
+      "breakdown": [
+        {"category": "electricity", "facility_id": "HQ-001", "activity_value": 188000, "unit": "kWh", "factor": 0.000225, "tco2e": 42.3},
+        {"category": "electricity", "facility_id": "MFG-001", "activity_value": 1230000, "unit": "kWh", "factor": 0.000286, "tco2e": 351.8},
+        {"category": "electricity", "facility_id": "WH-001", "activity_value": 855000, "unit": "kWh", "factor": 0.000571, "tco2e": 488.2}
+      ]
+    },
+    "scope_3": {
+      "total_tco2e": 312.5,
+      "breakdown": [
+        {"category": "business_travel_air", "tco2e": 78.4},
+        {"category": "purchased_goods", "tco2e": 198.6},
+        {"category": "employee_commuting", "tco2e": 35.5}
+      ]
+    },
+    "total_tco2e": 2206.1,
+    "methodology_notes": [],
+    "data_quality_score": 0.94
+  },
+  {
+    "period": "2025-11",
+    "calculated_at": "2025-12-03T08:20:00Z",
+    "scope_1": {
+      "total_tco2e": 1052.3,
+      "breakdown": [
+        {"category": "natural_gas", "facility_id": "MFG-001", "activity_value": 4100, "unit": "MMBtu", "factor": 0.05311, "tco2e": 217.8},
+        {"category": "natural_gas", "facility_id": "HQ-001", "activity_value": 480, "unit": "MMBtu", "factor": 0.05311, "tco2e": 25.5},
+        {"category": "natural_gas", "facility_id": "WH-001", "activity_value": 640, "unit": "MMBtu", "factor": 0.05311, "tco2e": 34.0},
+        {"category": "diesel", "facility_id": "MFG-001", "activity_value": 4150, "unit": "gallon", "factor": 0.01021, "tco2e": 42.4},
+        {"category": "diesel", "facility_id": "WH-001", "activity_value": 1780, "unit": "gallon", "factor": 0.01021, "tco2e": 18.2},
+        {"category": "gasoline", "facility_id": "HQ-001", "activity_value": 590, "unit": "gallon", "factor": 0.00887, "tco2e": 5.2}
+      ]
+    },
+    "scope_2": {
+      "total_tco2e": 891.6,
+      "location_based": 891.6,
+      "breakdown": [
+        {"category": "electricity", "facility_id": "HQ-001", "activity_value": 192000, "unit": "kWh", "factor": 0.000225, "tco2e": 43.2},
+        {"category": "electricity", "facility_id": "MFG-001", "activity_value": 1248000, "unit": "kWh", "factor": 0.000286, "tco2e": 356.9},
+        {"category": "electricity", "facility_id": "WH-001", "activity_value": 860000, "unit": "kWh", "factor": 0.000571, "tco2e": 491.1}
+      ]
+    },
+    "scope_3": {
+      "total_tco2e": 295.8,
+      "breakdown": [
+        {"category": "business_travel_air", "tco2e": 62.1},
+        {"category": "purchased_goods", "tco2e": 198.2},
+        {"category": "employee_commuting", "tco2e": 35.5}
+      ]
+    },
+    "total_tco2e": 2239.7,
+    "methodology_notes": ["November natural gas increase vs October reflects seasonal heating demand"],
+    "data_quality_score": 0.96
+  },
+  {
+    "period": "2025-12",
+    "calculated_at": "2026-01-03T08:25:00Z",
+    "scope_1": {
+      "total_tco2e": 1108.9,
+      "breakdown": [
+        {"category": "natural_gas", "facility_id": "MFG-001", "activity_value": 4420, "unit": "MMBtu", "factor": 0.05311, "tco2e": 234.7},
+        {"category": "natural_gas", "facility_id": "HQ-001", "activity_value": 530, "unit": "MMBtu", "factor": 0.05311, "tco2e": 28.1},
+        {"category": "natural_gas", "facility_id": "WH-001", "activity_value": 720, "unit": "MMBtu", "factor": 0.05311, "tco2e": 38.2},
+        {"category": "diesel", "facility_id": "MFG-001", "activity_value": 4300, "unit": "gallon", "factor": 0.01021, "tco2e": 43.9},
+        {"category": "diesel", "facility_id": "WH-001", "activity_value": 1850, "unit": "gallon", "factor": 0.01021, "tco2e": 18.9},
+        {"category": "gasoline", "facility_id": "HQ-001", "activity_value": 580, "unit": "gallon", "factor": 0.00887, "tco2e": 5.1}
+      ]
+    },
+    "scope_2": {
+      "total_tco2e": 908.3,
+      "location_based": 908.3,
+      "breakdown": [
+        {"category": "electricity", "facility_id": "HQ-001", "activity_value": 196000, "unit": "kWh", "factor": 0.000225, "tco2e": 44.1},
+        {"category": "electricity", "facility_id": "MFG-001", "activity_value": 1265000, "unit": "kWh", "factor": 0.000286, "tco2e": 361.8},
+        {"category": "electricity", "facility_id": "WH-001", "activity_value": 878000, "unit": "kWh", "factor": 0.000571, "tco2e": 501.3}
+      ]
+    },
+    "scope_3": {
+      "total_tco2e": 408.4,
+      "breakdown": [
+        {"category": "business_travel_air", "tco2e": 52.3},
+        {"category": "purchased_goods", "tco2e": 320.6},
+        {"category": "employee_commuting", "tco2e": 35.5}
+      ]
+    },
+    "total_tco2e": 2425.6,
+    "methodology_notes": ["December purchased goods high due to Q4 inventory build"],
+    "data_quality_score": 0.93
+  }
+]
